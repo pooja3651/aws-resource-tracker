@@ -1,0 +1,2 @@
+# Add this to crontab to run the script daily at 6 PM
+0 18 * * * /usr/local/bin/aws-resource-tracker.sh >> /var/log/aws_resource_usage.log 2>&1
