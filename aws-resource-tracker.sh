@@ -6,7 +6,7 @@
 # Author: Pooja Sahu
 # Date: 1-Mar-2025
 #
-# Version: v1
+# Version: v2
 #
 ######################################################
 
@@ -32,18 +32,20 @@ set -x
 
 # list s3 buckets
 echo "Print list of s3 buckets"
-aws s3 ls >> resourceTracker
+aws s3 ls 
 
 
 # list ec2 instance
 echo "Print list of ec2 instances"
-aws ec2 describe-instances | jq '.Reservations[].Instances[].[InstanceId,InstanceType,State.Name,PublicIpAddress]' >> resourceTracker                                                            
+#aws ec2 describe-instances | jq '.Reservations[].Instances[].[InstanceId,InstanceType,State.Name,PublicIpAddress]'     
+aws ec2 describe-instances --query "Reservations[*].Instances[*].[InstanceId,InstanceType,State.Name,PublicIpAddress]" --output table
+
 
 # list iam users
 echo "Print list of iam users"
-aws iam list-users >> resourceTracker
+aws iam list-users 
 
 
 # list lambda
 echo "Print list of lambda functions"
-aws lambda list-functions  >> resourceTracker
+aws lambda list-functions  
